@@ -21,6 +21,6 @@ class MyApp extends StatelessWidget {
           bottomNavigationBarTheme: BottomNavigationBarThemeData(selectedItemColor: Colors.white),
           useMaterial3: true,
         ),
-        home: HomeScreen());
+        home: NavbarScreen());
   }
 }

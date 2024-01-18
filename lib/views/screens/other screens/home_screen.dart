@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_clone/views/widgets/custom_sliver_appbar.dart';
+import 'package:youtube_clone/views/widgets/video_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,6 +20,15 @@ class _HomeScreenState extends State<HomeScreen> {
       slivers: 
       [
         CustomSliverAppBar(),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) 
+            {
+          return VideoCard(videoUrl: "https:my vi",);
+        },
+        //childCount: 
+        ),
+        ),
       ],
      ),
     );
