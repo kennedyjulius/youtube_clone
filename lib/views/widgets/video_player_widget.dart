@@ -15,7 +15,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(widget.videoUrl)
+    _controller = VideoPlayerController.networkUrl(widget.videoUrl as Uri)
       ..initialize().then((_) {
         setState(() {});
       });

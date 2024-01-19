@@ -1,9 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:youtube_clone/views/screens/other%20screens/home_screen.dart';
-import 'package:youtube_clone/views/widgets/navbar.dart';
+import 'package:youtube_clone/firebase_options.dart';
+import 'package:youtube_clone/views/screens/nav_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -14,11 +19,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         title: 'Youtube Clone',
         theme: ThemeData(
           brightness: Brightness.dark,
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(selectedItemColor: Colors.white),
+          bottomNavigationBarTheme:
+              BottomNavigationBarThemeData(selectedItemColor: Colors.white),
           useMaterial3: true,
         ),
         home: NavbarScreen());

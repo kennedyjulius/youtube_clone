@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_clone/views/screens/other%20screens/add_screen.dart';
-import 'package:youtube_clone/views/screens/other%20screens/explore_screen.dart';
 import 'package:youtube_clone/views/screens/other%20screens/home_screen.dart';
-import 'package:youtube_clone/views/screens/other%20screens/library_screen.dart';
-import 'package:youtube_clone/views/screens/other%20screens/subscription_screen.dart';
+
 
 class NavbarScreen extends StatefulWidget {
   const NavbarScreen({Key? key}) : super(key: key);
@@ -13,30 +10,38 @@ class NavbarScreen extends StatefulWidget {
 }
 
 class _NavbarScreenState extends State<NavbarScreen> {
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const AddScreen(),
-    const ExploreScreen(),
-    const LibraryScreen(),
-    const SubscriptionScreen()
-  ];
-
-  void _navigateBottomBar(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   int _selectedIndex = 0;
+
+  final _screens = [
+     HomeScreen(),
+    const Scaffold(body: Center(child: Text("Explore"))),
+    const Scaffold(body: Center(child: Text("Add"))),
+    const Scaffold(body: Center(child: Text("Subscriptions"))),
+    const Scaffold(body: Center(child: Text("Library")))
+  ];
+
+  // void _navigateBottomBar(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex],
+      body: Stack(
+        children: _screens.asMap().map((i, screen) => MapEntry(i, 
+        Offstage(
+          offstage: _selectedIndex != i,
+          child: screen),
+        )).values.toList(),
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) => _navigateBottomBar(index),
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
+        onTap: (i) => setState(() =>_selectedIndex ),
         selectedFontSize: 10.0,
         unselectedFontSize: 10.0,
         items: [

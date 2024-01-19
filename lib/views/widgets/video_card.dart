@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_clone/views/widgets/video_player_widget.dart';
+
 
 class VideoCard extends StatelessWidget {
   final String videoUrl;
-  const VideoCard({super.key, required this.videoUrl});
+  const VideoCard({super.key, 
+  required this.videoUrl
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class VideoCard extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 16/9,
-              child: VideoPlayerWidget(videoUrl: videoUrl),
+              child: Text(videoUrl),
               ),
               Padding(
                 padding: EdgeInsets.all(12.0),

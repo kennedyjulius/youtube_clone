@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "449640566695",
+    "project_id": "clone-65e4d",
+    "storage_bucket": "clone-65e4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449640566695:android:16cd79503a1fe104da7082",
+        "android_client_info": {
+          "package_name": "com.example.youtube_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAND-EzFv8V3T0dEvbG9SFcfeKPIwrdyoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
