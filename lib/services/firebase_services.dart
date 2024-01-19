@@ -5,18 +5,8 @@ class FirebaseService {
   final CollectionReference videosCollection =
       FirebaseFirestore.instance.collection('videos');
 
-  Future<void> addVideoInfo() async {
-
-  
-
-    VideoInfoModal video = VideoInfoModal(
-      title: "Movie",
-      description: "This is a Spiderman Movie",
-      videoUrl:
-          "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
-    );
-
-    await videosCollection.add(video.toMap());
+  Future<void> addVideoInfo(VideoInfoModal videoInfo) async {
+    await videosCollection.add(videoInfo.toMap());
   }
 
   Stream<List<VideoInfoModal>> getVideosStream() {

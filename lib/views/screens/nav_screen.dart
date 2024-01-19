@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_clone/views/screens/other%20screens/home_screen.dart';
 
+final selectedVideoProvider = StateProvider<video?>((ref) => null);
 
 class NavbarScreen extends StatefulWidget {
   const NavbarScreen({Key? key}) : super(key: key);
@@ -10,11 +11,10 @@ class NavbarScreen extends StatefulWidget {
 }
 
 class _NavbarScreenState extends State<NavbarScreen> {
-
   int _selectedIndex = 0;
 
   final _screens = [
-     HomeScreen(),
+    HomeScreen(),
     const Scaffold(body: Center(child: Text("Explore"))),
     const Scaffold(body: Center(child: Text("Add"))),
     const Scaffold(body: Center(child: Text("Subscriptions"))),
@@ -27,21 +27,23 @@ class _NavbarScreenState extends State<NavbarScreen> {
   //   });
   // }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: _screens.asMap().map((i, screen) => MapEntry(i, 
-        Offstage(
-          offstage: _selectedIndex != i,
-          child: screen),
-        )).values.toList(),
+        children: _screens
+            .asMap()
+            .map((i, screen) => MapEntry(
+                  i,
+                  Offstage(offstage: _selectedIndex != i, child: screen),
+                ))
+            .values
+            .toList(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
-        onTap: (i) => setState(() =>_selectedIndex ),
+        onTap: (i) => setState(() => _selectedIndex),
         selectedFontSize: 10.0,
         unselectedFontSize: 10.0,
         items: [

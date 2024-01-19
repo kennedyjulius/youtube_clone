@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:miniplayer/miniplayer.dart';
+import 'package:youtube_clone/controllers/miniplayer_controller.dart';
 import 'package:youtube_clone/model/video_modal.dart';
 import 'package:youtube_clone/services/firebase_services.dart';
 import 'package:youtube_clone/views/widgets/custom_sliver_appbar.dart';
@@ -6,13 +9,15 @@ import 'package:youtube_clone/views/widgets/video_card.dart';
 
 class HomeScreen extends StatefulWidget {
   final FirebaseService _firebaseService = FirebaseService();
-   HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final MiniPlayerController miniPlayerController =
+      Get.put(MiniPlayerController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,10 +58,14 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
           ),
-        
-        
         ],
       ),
+      bottomNavigationBar: Obx(() {
+        //show the miniplayer based onnstate
+        return miniPlayerController.isMiniPlayerOpen.value
+            ? const Miniplayer("videoUrl: miniPlayerController.currentVideoUrl.value")
+            : SizedBox.shrink();
+      }),
     );
   }
 }
