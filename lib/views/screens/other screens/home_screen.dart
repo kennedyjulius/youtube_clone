@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: Obx(() {
-        //show the miniplayer based onnstate
+        //show the miniplayer based on state
         return miniPlayerController.isMiniPlayerOpen.value
             ? const Miniplayer("videoUrl: miniPlayerController.currentVideoUrl.value")
             : SizedBox.shrink();
