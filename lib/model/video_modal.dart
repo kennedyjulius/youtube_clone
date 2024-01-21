@@ -1,35 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class VideoInfoModal {
-  final String title;
-  final String description;
+  final String time;
+  final String thumbnailUrl;
   final String videoUrl;
+  final String title;
 
   VideoInfoModal({
-    required this.title,
-    required this.description,
+    required this.time,
+    required this.thumbnailUrl,
     required this.videoUrl,
+    required this.title,
   });
 
-  // Method to convert the object to a map
-  Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'description': description,
-      'videoUrl': videoUrl,
-    };
-  }
+  factory VideoInfoModal.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
-  // Factory method to create an object from a map
-  factory VideoInfoModal.fromMap(Map<String, dynamic> map) {
     return VideoInfoModal(
-      title: map['title'],
-      description: map['description'],
-      videoUrl: map['videoUrl'],
+      time: data['time'] ?? '',
+      thumbnailUrl: data['thumbnailUrl'] ?? '',
+      videoUrl: data['videoUrl'] ?? '',
+      title: data['title'] ?? '',
     );
   }
 
-  // Override toString for easier debugging
-  @override
-  String toString() {
-    return 'VideoInfoModal{title: $title, description: $description, videoUrl: $videoUrl}';
+  Map<String, dynamic> toMap() {
+    return {
+      'time': time,
+      'thumbnailUrl': thumbnailUrl,
+      'videoUrl': videoUrl,
+      'title': title,
+    };
   }
 }

@@ -2,18 +2,38 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:youtube_clone/model/video_modal.dart';
 
 class FirebaseService {
-  final CollectionReference videosCollection =
-      FirebaseFirestore.instance.collection('videos');
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final String videosCollection = ''; // Replace with your collection name
 
-  Future<void> addVideoInfo(VideoInfoModal videoInfo) async {
-    await videosCollection.add(videoInfo.toMap());
+  Future<List<VideoInfoModal>> getVideos() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await _firestore.collection(videosCollection).get();
+
+      List<VideoInfoModal> videos = querySnapshot.docs
+          .map((doc) => VideoInfoModal.fromFirestore(doc))
+          .toList();
+
+      return videos;
+    } catch (e) {
+      print('Error fetching videos: $e');
+      throw Exception('Failed to fetch videos');
+    }
   }
 
   Stream<List<VideoInfoModal>> getVideosStream() {
-    return videosCollection.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        return VideoInfoModal.fromMap(doc.data() as Map<String, dynamic>);
-      }).toList();
-    });
+    try {
+      Stream<QuerySnapshot> stream =
+          _firestore.collection(videosCollection).snapshots();
+
+      return stream.map((querySnapshot) {
+        return querySnapshot.docs
+            .map((doc) => VideoInfoModal.fromFirestore(doc))
+            .toList();
+      });
+    } catch (e) {
+      print('Error streaming videos: $e');
+      throw Exception('Failed to stream videos');
+    }
   }
 }

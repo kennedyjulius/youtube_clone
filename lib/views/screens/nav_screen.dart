@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_clone/views/screens/other%20screens/home_screen.dart';
 
-final selectedVideoProvider = StateProvider<video?>((ref) => null);
+// final selectedVideoProvider = StateProvider<video?>((ref) => null);
 
 class NavbarScreen extends StatefulWidget {
   const NavbarScreen({Key? key}) : super(key: key);
