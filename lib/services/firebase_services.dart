@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:youtube_clone/model/video_modal.dart';
 
 class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final String videosCollection = ''; // Replace with your collection name
+  final String videosCollection =
+      'videosCollection'; // Replace with your collection name
 
   Future<List<VideoInfoModal>> getVideos() async {
     try {
@@ -32,7 +35,7 @@ class FirebaseService {
             .toList();
       });
     } catch (e) {
-      print('Error streaming videos: $e');
+      Get.snackbar("Error Loading", "$e");
       throw Exception('Failed to stream videos');
     }
   }

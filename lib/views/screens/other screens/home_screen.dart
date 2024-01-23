@@ -16,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final MiniPlayerController miniPlayerController =
+      Get.put(MiniPlayerController());
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      return VideoCard(videoUrl: videos[index].videoUrl);
+                      return VideoCard(videoInfo: videos[index]);
                     },
                     childCount: videos.length,
                   ),
