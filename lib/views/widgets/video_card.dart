@@ -4,9 +4,10 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:youtube_clone/model/video_modal.dart';
 
 class VideoCard extends StatelessWidget {
-  final VideoInfoModal videoInfo;
-  
-  const VideoCard({Key? key, required this.videoInfo}) : super(key: key);
+
+  final data;
+
+  const VideoCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class VideoCard extends StatelessWidget {
         Stack(
           children: [
             Image.network(
-              videoInfo.thumbnailUrl,
+              data['thumbnailUrl'],
               height: 220,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -26,7 +27,7 @@ class VideoCard extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(10.0),
                 child: Text(
-                  videoInfo.description,
+                  "dummy text description",
                   style: TextStyle(fontSize: 26, color: Colors.white),
                 ),
               ),
@@ -42,7 +43,9 @@ class VideoCard extends StatelessWidget {
                   },
                   icon: CircleAvatar(
                     radius: 42,
-                    backgroundImage: NetworkImage(videoInfo.authorProfileImageUrl),
+                    backgroundImage: NetworkImage(
+                      "https://images.unsplash.com/photo-1682685797332-e678a04f8a64?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8",
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -55,19 +58,19 @@ class VideoCard extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          videoInfo.title,
+                          data['title'],
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       // Add other UI components like author name, view count, and timestamp here
-                      Flexible(
-                        child: Text(
-                          "${videoInfo.author.username} . ${videoInfo.viewCount} views . ${timeago.format(videoInfo.timestamp).timestamp}",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                      // Flexible(
+                      //   child: Text(
+                      //     "${videoInfo.author.username} . ${videoInfo.viewCount} views . ${timeago.format(videoInfo.timestamp).timestamp}",
+                      //     maxLines: 2,
+                      //     overflow: TextOverflow.ellipsis,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

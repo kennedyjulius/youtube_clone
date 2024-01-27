@@ -1,14 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:miniplayer/miniplayer.dart';
-import 'package:youtube_clone/controllers/miniplayer_controller.dart';
-import 'package:youtube_clone/model/video_modal.dart';
 import 'package:youtube_clone/services/firebase_services.dart';
 import 'package:youtube_clone/views/widgets/custom_sliver_appbar.dart';
 import 'package:youtube_clone/views/widgets/video_card.dart';
+import 'package:youtube_clone/views/widgets/video_player_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   final FirebaseService _firebaseService = FirebaseService();
+
   HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -16,8 +16,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final MiniPlayerController miniPlayerController =
-      Get.put(MiniPlayerController());
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  List<String> images = [
+    "squat1",
+    "squat2",
+    "squat3",
+    "squat4",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomScrollView(
         slivers: [
           CustomSliverAppBar(),
-          StreamBuilder<List<VideoInfoModal>>(
-            stream: widget._firebaseService.getVideosStream(),
+          StreamBuilder(
+            stream: _firestore.collection("videosCollection").snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return SliverToBoxAdapter(
@@ -40,20 +46,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text('Error: ${snapshot.error}'),
                   ),
                 );
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                 return SliverToBoxAdapter(
                   child: Center(
                     child: Text('No videos available.'),
                   ),
                 );
               } else {
-                List<VideoInfoModal> videos = snapshot.data!;
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      return VideoCard(videoInfo: videos[index]);
+                      return PageView.builder(
+                        scrollBehavior: MaterialScrollBehavior(),
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          Container(
+                            height: 200,
+                            width: double.maxFinite,
+                            child: VideoPlayerWidget(
+                                data: snapshot.data?.docs[index]),
+                          );
+                        },
+                      );
                     },
-                    childCount: videos.length,
+                    childCount: snapshot.data!.docs.length,
                   ),
                 );
               }

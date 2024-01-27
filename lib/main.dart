@@ -28,17 +28,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialBinding: BindingsBuilder(() {
-          Get.put(AuthService());
-        }),
-        title: 'Youtube Clone',
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          bottomNavigationBarTheme:
-              BottomNavigationBarThemeData(selectedItemColor: Colors.white),
-          useMaterial3: true,
-        ),
-        home: isShow ? OnboardingScreen() : HomeScreen());
+      debugShowCheckedModeBanner: false,
+      initialBinding: BindingsBuilder(() {
+        Get.put(AuthService());
+      }),
+      title: 'Youtube Clone',
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        bottomNavigationBarTheme:
+            BottomNavigationBarThemeData(selectedItemColor: Colors.white),
+        useMaterial3: true,
+      ),
+      home: HomeScreen(),
+    );
+    // home: isShow ? OnboardingScreen() : HomeScreen());
   }
 }

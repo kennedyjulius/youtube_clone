@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class VideoInfoModal {
   final String time;
-  final String thumbnail;
+  //final String thumbnail;
   final String videoUrl;
   final String title;
 
   VideoInfoModal({
     required this.time,
-    required this.thumbnail,
+    //required this.thumbnail,
     required this.videoUrl,
     required this.title,
   });
@@ -18,7 +18,7 @@ class VideoInfoModal {
 
     return VideoInfoModal(
       time: data['time'] ?? '',
-      thumbnail: data['thumbnail'] ?? '',
+      //thumbnail: data['thumbnail'] ?? '',
       videoUrl: data['videoUrl'] ?? '',
       title: data['title'] ?? '',
     );
@@ -27,7 +27,7 @@ class VideoInfoModal {
   Map<String, dynamic> toMap() {
     return {
       'time': time,
-      'thumbnailUrl': thumbnail,
+      //'thumbnailUrl': thumbnail,
       'videoUrl': videoUrl,
       'title': title,
     };
